@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'DRUIDPY',         
   packages = ['DRUIDPY'],  
-  version = '0.1',      
+  version = '0.11',      
   license='MIT',        
   description = 'A package which provides minimum required methods for working with Druid through Python', 
   author = 'NARESH KUMAR B N',                  
   author_email = 'nareshbn007@gmail.com',      
   url = 'https://github.com/Naresh-kumar-B-N/druidpy',   
-  download_url = 'https://github.com/Naresh-kumar-B-N/druidpy/archive/pypi-0_1.tar.gz',    
+  download_url = 'https://github.com/Naresh-kumar-B-N/druidpy/archive/pypi-0_11.tar.gz',    
   keywords = ['DRUID', 'DRUID PYTHON', 'DRUID MODULE'],   
   install_requires=[            
           'json',
