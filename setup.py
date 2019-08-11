@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="druidpy",
-    version="0.11",
+    version="1.o",
     author="Naresh Kumar B N",
     author_email="nareshbn007@gmail.com",
     description="A package which provides minimum required methods for working with Druid through Python!",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Naresh-kumar-B-N/druidpy/archive/pypi-0_11.tar.gz",
+    url="https://github.com/Naresh-kumar-B-N/druidpy/archive/v1.0.tar.gz",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
