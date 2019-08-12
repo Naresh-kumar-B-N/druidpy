@@ -103,8 +103,8 @@ class Druid():
         try:
             url = coordinator_url+"/druid/coordinator/v1/datasources/"+dataset
             r = requests.get(url)
-        self.raise_error(r)
-        return (r.content)
+            self.raise_error(r)
+            return (r.content)
 
         except requests.exceptions.RequestException as e:
             print(e)
