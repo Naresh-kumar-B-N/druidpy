@@ -9,33 +9,33 @@ class Druid():
 		print(" ")
 
 	def print_list(self,list_obj):
-        	for i in list_obj:
-                	print((json.dumps(i)).strip('\"'))
+    		for i in list_obj:
+        		print((json.dumps(i)).strip('\"'))
 
 	def get_status(self,url): # Get the status of the node
 		try:
 			v_url=url+"/status"
 			r = requests.get(v_url)   
-                	return r.content
+        		return r.content
         	except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+            		sys.exit(1)
 
 	def get_health(self,url): # get the health of the node 
 		try:
-                	url=url+"/status/health"
-                	r = requests.get(url)
-                	return r.content
+        		url=url+"/status/health"
+        		r = requests.get(url)
+        		return r.content
 
         	except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
 	def raise_error(self,response):
 		if response.status_code!=200:
-                	print("oops!.. Something went wrong ! Please check the values passed!!")
-                        raise SystemExit()
+        		print("oops!.. Something went wrong ! Please check the values passed!!")
+        		raise SystemExit()
 
 	def coordinator_leader(self,coordinator_url):  # get the current leader f coordinator
 		try:
@@ -48,14 +48,14 @@ class Druid():
 			sys.exit(1)
 
 	def overlord_leader(self,overlord_url): # get the current leader of the overlord
-                try:
-                        url=overlord_url+"/druid/indexer/v1/leader"
-                        r = requests.get(url)
-                        return r.content
+    		try:
+        		url=overlord_url+"/druid/indexer/v1/leader"
+        		r = requests.get(url)
+        		return r.content
 
-                except requests.exceptions.RequestException as e:
-                        print(e)
-                        sys.exit(1)
+    		except requests.exceptions.RequestException as e:
+        		print(e)
+        		sys.exit(1)
 
 
 	def list_datasources(self,coordinator_url): # return the list of datasources available
@@ -66,8 +66,8 @@ class Druid():
 			return self.print_list(res)
 
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
 	def list_segments(self,coordinator_url,dataset): # return the list of segments of given datasource
@@ -76,16 +76,16 @@ class Druid():
 			r=requests.get(url)
 			self.raise_error(r)
 			res=(json.loads(r.content))
-                	return self.print_list(res)
+            		return self.print_list(res)
 
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 	def list_intervals(self,coordinator_url,dataset): # return the list of intervals for given datasource
-        	try:
+    		try:
 			url=coordinator_url+"/druid/coordinator/v1/datasources/"+dataset+"/intervals?simple"
-        		r=requests.get(url)
+			r=requests.get(url)
 			self.raise_error(r)
 			v=dict()
 			v=json.loads(r.content)
@@ -93,19 +93,19 @@ class Druid():
 				print(n)
 
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 	def datasource_meta(self,coordinator_url,dataset):  # return the metadata of the given datasource
 		try:
 			url=coordinator_url+"/druid/coordinator/v1/datasources/"+dataset
 			r=requests.get(url)
-        		self.raise_error(r)
+        	self.raise_error(r)
 			return (r.content)
 
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 	
 
 	def list_tiers(self,coordinator_url,formatting=True): # list the tiers available in the cluster
@@ -115,18 +115,18 @@ class Druid():
 			self.raise_error(r)
 			res=json.loads(r.content)
 			if formatting == True:
-               			return self.print_list(res)
+            			return self.print_list(res)
 			else:
 				return res
 
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
 
 	def list_lookups(self,coordinator_url,tier,formatting=True): # return all the lookups loaded int the cluster 
-        	try:
+    		try:
 			if tier not in self.list_tiers(coordinator_url,False):
 				raise SystemExit("oops!... please check the tier name passed!")	
 
@@ -134,27 +134,27 @@ class Druid():
         		r=requests.get(url)
 			res=json.loads(r.content)
 			if formatting == True:
-                		return self.print_list(res)
+            			return self.print_list(res)
 			else:
 				return res
 
 		except requests.exceptions.RequestException as e:
-        	        print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
 	def lookup_meta(self,coordinator_url,tier,lookup):  # return the meta of a lookup
 		try:
 			if tier not in self.list_tiers(coordinator_url,False):
-                        	raise SystemExit("oops!... please check the tier name passed!")
+            			raise SystemExit("oops!... please check the tier name passed!")
 
 			url=coordinator_url+"/druid/coordinator/v1/lookups/config/"+tier+"/"+lookup
         		r=requests.get(url)
         		return json.loads(r.content)
 
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
 
@@ -165,14 +165,13 @@ class Druid():
 				r=requests.get(url)
 				return (json.loads(r.content,encoding="UTF-8").values())
         		else:
-				url=coordinator_url+"/druid/coordinator/v1/lookups/status/"+tier
-					
+				url=coordinator_url+"/druid/coordinator/v1/lookups/status/"+tier	
 				r=requests.get(url)
 				return json.loads(r.content)
 
 		except requests.exceptions.RequestException as e:
-        	        print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 	def list_lookups_by_state(self,coordinator_url,tier,state=True):
 		try:
@@ -186,14 +185,14 @@ class Druid():
 			return self.print_list(fin_list)
 		
 		except requests.exceptions.RequestException as e:
-                        print(e)
-                        sys.exit(1)
+        		print(e)
+         		sys.exit(1)
 
 
 	def lookup_post(self,coordinator_url,tier,lookup,mysql_jdbc,db_user,db_password,key_column,val_column,poll_min):  # post the lookup into druid
 		try:
 			if tier not in self.list_tiers(coordinator_url,False):
-                        	raise SystemExit("oops!... please check the tier name passed!")
+            			raise SystemExit("oops!... please check the tier name passed!")
 		
 			if lookup not in self.list_lookups(coordinator_url,tier,False):
 				new_version=0
@@ -215,14 +214,14 @@ class Druid():
 			
 				
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 			
 	def lookup_delete(self,coordinator_url,tier,lookup): # delete the lookup
 		try:
 
 			if tier not in self.list_tiers(coordinator_url,False):
-                        	raise SystemExit("oops!... please check the tier name passed!")
+            			raise SystemExit("oops!... please check the tier name passed!")
 
 			if lookup not in self.list_lookups(coordinator_url,tier,False):
 				raise SystemExit("oops!...Lookup not found!")
@@ -232,12 +231,12 @@ class Druid():
 			r=requests.delete(url)
         	
 			if r.status_code!=202:
-                		raise SystemExit("oop!... please check the values  passed!")
+            			raise SystemExit("oop!... please check the values  passed!")
         		else:
-                		print("Request for lookup delete posted !")	
+            			print("Request for lookup delete posted !")	
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
 	def data_query(self,broker_url,query): # query the datasources 
@@ -250,8 +249,8 @@ class Druid():
 			self.raise_error(r)
 			return (r.content)
 		except requests.exceptions.RequestException as e:
-                	print(e)
-                	sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 	
 	def ingest_task(self,overlord_url,ingestion_spec): #post the ingest task
@@ -291,13 +290,12 @@ class Druid():
                 			ing_status=g_dict['status']['status']
 
 			if ing_status == 'FAILED':
-				
         			raise SystemExit("Ingestion task is failed, please check overlord logs!")
 			else:
         			return "ingestion is successfull"	
 
 		except requests.exceptions.RequestException as e:
-                        print(e)
-                        sys.exit(1)
+        		print(e)
+        		sys.exit(1)
 
 
