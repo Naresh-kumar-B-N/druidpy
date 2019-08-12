@@ -1,4 +1,2 @@
 
-from druidpy.druid import Druid 
-
-
+from druidpy.druid import Druid
