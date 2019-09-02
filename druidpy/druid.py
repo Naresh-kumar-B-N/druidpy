@@ -197,7 +197,7 @@ class Druid():
                 new_version = 0
             else:
                 vdata = ''
-                res = lookup_meta(coordinator_url, tier, lookup)
+                res = self.lookup_meta(coordinator_url, tier, lookup)
                 version = res["version"][1:]
                 new_version = int(version)+1
 
