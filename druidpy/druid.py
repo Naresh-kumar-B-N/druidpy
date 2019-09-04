@@ -3,6 +3,7 @@ import sys
 import json
 import string
 import requests
+import logging
 
 
 class Druid():
@@ -63,9 +64,8 @@ class Druid():
         try:
             url = coordinator_url+"/druid/coordinator/v1/datasources"
             r = requests.get(url)
-            res = json.loads(r.content)
-            return self.print_list(res)
-
+            r_new = eval(str(r.content))
+            return r_new
         except requests.exceptions.RequestException as e:
             print(e)
             sys.exit(1)
@@ -76,8 +76,8 @@ class Druid():
             url = coordinator_url+"/druid/coordinator/v1/metadata/datasources/"+dataset+"/segments"
             r = requests.get(url)
             self.raise_error(r)
-            res = (json.loads(r.content))
-            return self.print_list(res)
+            r_new = eval(str(r.content))
+            return r_new
 
         except requests.exceptions.RequestException as e:
             print(e)
@@ -91,8 +91,8 @@ class Druid():
             self.raise_error(r)
             v = dict()
             v = json.loads(r.content)
-            for n in v.items():
-                print(n)
+            r_new = eval(str(r.content))
+            return r_new
 
         except requests.exceptions.RequestException as e:
             print(e)
@@ -118,7 +118,8 @@ class Druid():
             self.raise_error(r)
             res = json.loads(r.content)
             if formatting == True:
-                return self.print_list(res)
+                r_new = eval(str(r.content))
+                return r_new
             else:
                 return res
 
@@ -136,7 +137,8 @@ class Druid():
             r = requests.get(url)
             res = json.loads(r.content)
             if formatting == True:
-                return self.print_list(res)
+                r_new = eval(str(r.content))
+                return r_new
             else:
                 return res
 
@@ -166,6 +168,7 @@ class Druid():
                 return (json.loads(r.content, encoding="UTF-8").values())
             else:
                 url = coordinator_url+"/druid/coordinator/v1/lookups/status/"+tier
+
                 r = requests.get(url)
                 return json.loads(r.content)
 
@@ -290,6 +293,7 @@ class Druid():
                     ing_status = g_dict['status']['status']
 
             if ing_status == 'FAILED':
+
                 raise SystemExit(
                     "Ingestion task is failed, please check overlord logs!")
             else:
@@ -298,3 +302,4 @@ class Druid():
         except requests.exceptions.RequestException as e:
             print(e)
             sys.exit(1)
+
