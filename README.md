@@ -1,6 +1,6 @@
 # Druidpy
 
-Druidpy provides all the required methods to use the Druid ( an open source database which gives sub second query performance ). Druidpy makes life of druid users easy and simple. 
+Druidpy provides all the required methods to use the Druid ( an open source database which gives sub second query performance ). Druidpy makes life of python druid users easy and simple. 
 
 # Overview
 
@@ -14,7 +14,7 @@ Druid users will be doing the below regular activities for working with druid an
 
 # Usage
 
-In the following paragraphs, I am going to describe how you can get and use Scrapeasy for your own projects.
+In the following paragraphs, I am going to describe how you can get and use druidpy for your own projects.
 
 # Downloading it
 
