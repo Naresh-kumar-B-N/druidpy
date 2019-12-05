@@ -1,6 +1,6 @@
 # Druidpy
 
-Druidpy provides all the required methods to use the Druid ( an open source database which gives sub second query performance ). Druidpy makes life of python druid users easy and simple. 
+Druidpy provides all the required methods to use the Druid ( an open source database which gives sub second query performance ). Druidpy makes life of druid users easy and simple. 
 
 # Overview
 
@@ -10,7 +10,12 @@ Druid users will be doing the below regular activities for working with druid an
   - Post a lookup
   - Delete a lookup
   - Query the datasource
-  - Get the details about datasources & lookups
+  - Get the meta details about datasource/Lookup/node
+  - Get the status of nodes
+  - Get the details about overlord leader & coordinator leader
+  - Get the lookup status 
+  - Get the list of datasources/intervals/segments/lookups
+
 
 # Usage
 
